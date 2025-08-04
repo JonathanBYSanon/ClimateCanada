@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenData - Visualisation</title>
+    <meta name="description" content="Tableaux de bord interactifs des données climatiques du Canada - Températures, CO₂ et précipitations (2019-2024).">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon512_rounded.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#209e92">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#209E92',
+                        'primary-dark': '#004E66',
+                        'primary-light': '#2EBC8F'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom styles for iframe embedding */
+        .powerbi-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+        }
+        
+        .powerbi-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Fullscreen styles */
+        .fullscreen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 9999;
+            display: none;
+        }
+
+        .fullscreen-container.active {
+            display: block;
+        }
+
+        .fullscreen-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0;
+        }
+
+        .fullscreen-exit {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-exit:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Page Header -->
+        <section class="bg-gradient-to-r from-primary-dark to-primary text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="flex items-center justify-center space-x-3 mb-4">
+                        <i class="fas fa-chart-bar text-4xl"></i>
+                        <h1 class="text-4xl md:text-5xl font-bold">Visualisation des Données</h1>
+                    </div>
+                    <p class="text-xl text-gray-100 mb-6">
+                        Explorez les données climatiques du Canada à travers des tableaux de bord interactifs
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 text-sm">
+                        <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>Températures</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                            <i class="fas fa-smog"></i>
+                            <span>Émissions CO₂</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span>Précipitations</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>2019-2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Container -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <!-- Instructions -->
+                <div class="max-w-4xl mx-auto mb-8">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-info-circle text-blue-500 text-xl mt-1"></i>
+                            <div>
+                                <h3 class="text-lg font-semibold text-blue-800 mb-2">Instructions d'utilisation</h3>
+                                <ul class="text-blue-700 space-y-1 text-sm">
+                                    <li>• Connectez vous à votre compte POwER BI en utilisant votre compte de la Cité</li>
+                                    <li>• Les graphiques sont interactifs : Cliquez pour naviguer ou afficher plus de détails</li>
+                                    <li>• Utilisez les boutons dans les graphiques pour naviguer entre les différents types de données</li>
+                                    <li>• Utiliser les boutons en bas pour naviguer d'une visualisation à l'autre</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Power BI Embed Container -->
+                <div class="max-w-7xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 flex items-center space-x-2">
+                                <i class="fas fa-chart-area text-primary"></i>
+                                <span>Visuels</span>
+                            </h2>
+                            <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Mis à jour automatiquement</span>
+                                </div>
+                                <button id="fullscreen-btn" class="flex items-center space-x-1 text-primary hover:text-primary-dark transition-colors duration-200 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+                                    <i class="fas fa-expand"></i>
+                                    <span>Plein écran</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Power BI Iframe Placeholder -->
+                        <div id="powerbi-container" class="powerbi-container bg-gray-100 rounded-lg">
+                            <!-- Loading State -->
+                            <div id="loading-state" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
+                                <div class="text-center">
+                                    <div class="loading-spinner w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+                                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Chargement du tableau de bord...</h3>
+                                    <p class="text-gray-500">Préparation des visualisations interactives</p>
+                                </div>
+                            </div>
+                            
+                            <iframe id="powerbi-iframe" title="Graphiques" width="1140" height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=d9952645-7cf8-4cf0-9884-6f888c944157&autoAuth=true&ctid=ad8a84ef-f1f3-4b14-ad08-b99ca66f7e30" 
+                            frameborder="0" allowFullScreen="true"></iframe>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="max-w-4xl mx-auto mt-12 text-center">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/index.html" class="inline-flex items-center space-x-2 bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Retour à l'accueil</span>
+                        </a>
+                        <a href="/pages/team.html" class="inline-flex items-center space-x-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200">
+                            <i class="fas fa-users"></i>
+                            <span>Rencontrer l'équipe</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Fullscreen Container -->
+    <div id="fullscreen-container" class="fullscreen-container">
+        <button id="fullscreen-exit-btn" class="fullscreen-exit" title="Quitter le plein écran">
+            <i class="fas fa-times"></i>
+        </button>
+        <iframe id="fullscreen-iframe" title="Graphiques - Plein écran"
+        src="https://app.powerbi.com/reportEmbed?reportId=d9952645-7cf8-4cf0-9884-6f888c944157&autoAuth=true&ctid=ad8a84ef-f1f3-4b14-ad08-b99ca66f7e30" 
+        frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/github-pages-config.js"></script>
+    <script src="/js/inject.js"></script>
+    
+    <script>
+        // Dashboard functionality
+        function refreshDashboard() {
+            const loadingState = document.getElementById('loading-state');
+            
+            // Show loading state
+            if (loadingState) {
+                loadingState.style.display = 'flex';
+            }
+        }
+
+        // Fullscreen functionality
+        let isFullscreen = false;
+        
+        function toggleFullscreen() {
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            const body = document.body;
+            
+            fullscreenContainer.classList.add('active');
+            body.style.overflow = 'hidden';
+            isFullscreen = true;
+            
+            // Update button text when in fullscreen
+            updateFullscreenButton();
+        }
+
+        function exitFullscreen() {
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            const body = document.body;
+            
+            fullscreenContainer.classList.remove('active');
+            body.style.overflow = 'auto';
+            isFullscreen = false;
+            
+            // Restore button text
+            updateFullscreenButton();
+        }
+        
+        function updateFullscreenButton() {
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            if (fullscreenBtn) {
+                if (isFullscreen) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i><span>Quitter plein écran</span>';
+                } else {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i><span>Plein écran</span>';
+                }
+            }
+        }
+
+        // Keyboard shortcut for fullscreen (ESC to exit)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (isFullscreen) {
+                    exitFullscreen();
+                }
+            }
+            
+            // F11 or Ctrl+F to toggle fullscreen
+            if (event.key === 'F11' || (event.key === 'f' && event.ctrlKey)) {
+                event.preventDefault();
+                if (isFullscreen) {
+                    exitFullscreen();
+                } else {
+                    toggleFullscreen();
+                }
+            }
+        });
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent right-click context menu on fullscreen iframe (optional)
+            const fullscreenIframe = document.getElementById('fullscreen-iframe');
+            if (fullscreenIframe) {
+                fullscreenIframe.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+            }
+            
+            // Setup fullscreen button event listener
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', function() {
+                    if (isFullscreen) {
+                        exitFullscreen();
+                    } else {
+                        toggleFullscreen();
+                    }
+                });
+            }
+            
+            // Setup exit button event listener
+            const exitBtn = document.getElementById('fullscreen-exit-btn');
+            if (exitBtn) {
+                exitBtn.addEventListener('click', function() {
+                    exitFullscreen();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<header class="bg-[#004E66] text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Logo and Brand -->
+            <div class="flex items-center space-x-3">
+                <img src="/images/logo.png" alt="GreenData Logo" class="h-10 w-10">
+                <div class="flex flex-col">
+                    <h1 class="text-xl font-bold text-white">GreenData</h1>
+                    <p class="text-xs text-gray-200 hidden sm:block">Données climatiques du Canada</p>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="/index.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="/pages/dashboard.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Visualisation</span>
+                </a>
+                <a href="/pages/team.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                    <i class="fas fa-users"></i>
+                    <span>Équipe</span>
+                </a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white hover:text-[#209E92] focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
+            <a href="/index.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="/pages/dashboard.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>Visualisation
+            </a>
+            <a href="/pages/team.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+                <i class="fas fa-users mr-2"></i>Équipe
+            </a>
+        </nav>
+    </div>
+</header>
+
+<script>
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+    }
+    
+    // Highlight current page in navigation
+    const currentPage = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (currentPage.endsWith(href) || (currentPage === '/' && href === '/index.html')) {
+            link.classList.add('bg-[#209E92]', 'text-white');
+        }
+    });
+});
+</script>

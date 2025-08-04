@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenData - Accueil</title>
+    <meta name="description" content="GreenData permet de visualiser les données climatiques du Canada (2019-2024) : températures, CO₂ et précipitations.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon512_rounded.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#209e92">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#209E92',
+                        'primary-dark': '#004E66',
+                        'primary-light': '#2EBC8F'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <img src="/images/logo.png" alt="GreenData Logo" class="h-20 w-20 mx-auto mb-4">
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        Green<span class="text-primary-dark">Data</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-100 leading-relaxed">
+                        Visualisez les données climatiques du Canada (2019-2024)
+                    </p>
+                    <p class="text-lg mb-12 text-gray-200 max-w-3xl mx-auto">
+                        Explorez les tendances climatiques à travers des données sur les températures, 
+                        les émissions de CO₂ et les précipitations pour mieux comprendre l'évolution 
+                        environnementale du Canada.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="/pages/dashboard.html" class="group bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2">
+                            <i class="fas fa-chart-bar group-hover:text-primary transition-colors duration-300"></i>
+                            <span>Voir les Visualisations</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </a>
+                        <a href="/pages/team.html" class="group border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary-dark transition-all duration-300 transform hover:scale-105 flex items-center space-x-2">
+                            <i class="fas fa-users"></i>
+                            <span>Rencontrer l'Équipe</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                            Données Climatiques Complètes
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Explorez les principales métriques environnementales du Canada 
+                            à travers des visualisations interactives et des analyses détaillées.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Temperature Card -->
+                        <div class="group bg-gray-50 rounded-xl p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="bg-primary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-opacity-20 transition-all duration-300">
+                                <i class="fas fa-thermometer-half text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Températures</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Analysez l'évolution des températures moyennes
+                                à travers différentes régions du Canada sur 5 ans.
+                            </p>
+                        </div>
+                        
+                        <!-- CO2 Card -->
+                        <div class="group bg-gray-50 rounded-xl p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="bg-primary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-opacity-20 transition-all duration-300">
+                                <i class="fas fa-smog text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Émissions CO₂</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Surveillez les niveaux d'émissions de dioxyde de carbone par région
+                                et par années.
+                            </p>
+                        </div>
+                        
+                        <!-- Precipitation Card -->
+                        <div class="group bg-gray-50 rounded-xl p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="bg-primary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-opacity-20 transition-all duration-300">
+                                <i class="fas fa-cloud-rain text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Précipitations</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Découvrez les volumes des précipitations par région et par années.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                                À Propos de GreenData
+                            </h2>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                GreenData est un projet de visualisation de données climatiques 
+                                qui vise à rendre accessible l'information environnementale du Canada. 
+                                Notre plateforme compile et présente les données de 2019 à 2024 
+                                de manière claire et interactive. Ce travail représente notre projet final 
+                                pour le cours de base de données.
+                            </p>
+
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center space-x-2 text-primary">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span class="text-gray-700">Visualisations interactives</span>
+                                </div>
+                                <div class="flex items-center space-x-2 text-primary">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span class="text-gray-700">Interface responsive</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white rounded-xl p-8 shadow-lg">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">5</div>
+                                        <div class="text-gray-600">Années de données</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">3</div>
+                                        <div class="text-gray-600">Types de données</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">13</div>
+                                        <div class="text-gray-600">Provinces/Territoires</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-primary">
+            <div class="container mx-auto px-4 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <a href="/pages/dashboard.html" class="inline-flex items-center space-x-2 bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-play"></i>
+                        <span>Commencer l'Exploration</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/js/github-pages-config.js"></script>
+    <script src="/js/inject.js"></script>
+</body>
+</html>

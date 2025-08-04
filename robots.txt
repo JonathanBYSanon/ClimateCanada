@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yourwebsite.com/sitemap.xml
+
+# Allow all web crawlers to access all content
+Crawl-delay: 1
+
+# Specific paths
+Allow: /images/
+Allow: /js/
+Allow: /components/
+Allow: /pages/
+
+# Disallow nothing - everything is public

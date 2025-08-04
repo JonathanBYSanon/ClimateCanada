@@ -1,0 +1,27 @@
+{
+    "theme_color": "#209e92",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "images/icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "images/icon512_rounded.png",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "any",
+    "display": "standalone",
+    "dir": "auto",
+    "lang": "fr-FR",
+    "name": "Green Data",
+    "short_name": "GD",
+    "start_url": "/",
+    "scope": "/",
+    "description": "GreenData permet de visualiser les données climatiques du Canada (2019-2024) : températures, CO₂ et précipitations."
+}

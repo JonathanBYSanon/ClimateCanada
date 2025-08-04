@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenData - Page non trouvée</title>
+    <meta name="description" content="Page non trouvée - Retournez à l'accueil de GreenData pour explorer les données climatiques du Canada.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon512_rounded.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#209e92">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#209E92',
+                        'primary-dark': '#004E66',
+                        'primary-light': '#2EBC8F'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse-custom 2s infinite;
+        }
+
+        @keyframes pulse-custom {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Error Icon -->
+                <div class="mb-8">
+                    <div class="floating-animation inline-block">
+                        <div class="bg-gradient-to-br from-primary-light to-primary w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <i class="fas fa-exclamation-triangle text-5xl text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Code -->
+                <div class="mb-8">
+                    <h1 class="text-8xl md:text-9xl font-bold text-gray-300 mb-4 pulse-animation">404</h1>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                        Page Non Trouvée
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Oups ! La page que vous recherchez semble avoir disparu comme la neige au printemps.
+                    </p>
+                </div>
+
+                <!-- Error Description -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 max-w-2xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-map-marked-alt text-2xl text-blue-500"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800 mb-2">URL Incorrecte</h3>
+                            <p class="text-sm text-gray-600">L'adresse saisie ne correspond à aucune page existante.</p>
+                        </div>
+                        <div>
+                            <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-link text-2xl text-yellow-500"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800 mb-2">Lien Brisé</h3>
+                            <p class="text-sm text-gray-600">Le lien que vous avez suivi pourrait être obsolète.</p>
+                        </div>
+                        <div>
+                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-server text-2xl text-red-500"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800 mb-2">Page Supprimée</h3>
+                            <p class="text-sm text-gray-600">La page a peut-être été déplacée ou supprimée.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Que Souhaitez-Vous Faire ?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                        <a href="/index.html" class="group bg-primary text-white p-6 rounded-lg hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <div class="flex flex-col items-center space-y-3">
+                                <i class="fas fa-home text-3xl group-hover:scale-110 transition-transform duration-300"></i>
+                                <span class="font-semibold">Retour à l'Accueil</span>
+                                <span class="text-sm text-gray-100">Découvrir GreenData</span>
+                            </div>
+                        </a>
+                        
+                        <a href="/pages/dashboard.html" class="group bg-blue-500 text-white p-6 rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <div class="flex flex-col items-center space-y-3">
+                                <i class="fas fa-chart-bar text-3xl group-hover:scale-110 transition-transform duration-300"></i>
+                                <span class="font-semibold">Visualisations</span>
+                                <span class="text-sm text-gray-100">Données climatiques</span>
+                            </div>
+                        </a>
+                        
+                        <a href="/pages/team.html" class="group bg-green-500 text-white p-6 rounded-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <div class="flex flex-col items-center space-y-3">
+                                <i class="fas fa-users text-3xl group-hover:scale-110 transition-transform duration-300"></i>
+                                <span class="font-semibold">Notre Équipe</span>
+                                <span class="text-sm text-gray-100">Rencontrer l'équipe</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Search Section -->
+                <div class="bg-gray-100 rounded-xl p-8 max-w-2xl mx-auto">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
+                        <i class="fas fa-search text-primary"></i>
+                        <span>Ou Recherchez du Contenu</span>
+                    </h3>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input 
+                            type="text" 
+                            placeholder="Rechercher des données climatiques..." 
+                            class="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            id="search-input"
+                        >
+                        <button 
+                            onclick="performSearch()"
+                            class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors duration-200 font-semibold flex items-center space-x-2"
+                        >
+                            <i class="fas fa-search"></i>
+                            <span>Rechercher</span>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-3">
+                        Recherchez parmi nos données de température, CO₂ et précipitations
+                    </p>
+                </div>
+
+                <!-- Climate Facts -->
+                <div class="mt-12 bg-gradient-to-r from-primary-dark to-primary rounded-xl p-8 text-white">
+                    <h3 class="text-2xl font-bold mb-6">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Le Saviez-Vous ?
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-white bg-opacity-20 rounded-full p-2 mt-1">
+                                <i class="fas fa-thermometer-half text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Réchauffement Canadien</h4>
+                                <p class="text-sm text-gray-100">Le Canada se réchauffe deux fois plus vite que la moyenne mondiale.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-white bg-opacity-20 rounded-full p-2 mt-1">
+                                <i class="fas fa-snowflake text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Arctique Sensible</h4>
+                                <p class="text-sm text-gray-100">L'Arctique canadien est l'une des régions les plus touchées par le changement climatique.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/js/github-pages-config.js"></script>
+    <script src="/js/inject.js"></script>
+    
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('search-input');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                // Redirect to dashboard with search context
+                window.location.href = `/pages/dashboard.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Add some interactivity to the error page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus search input after a short delay
+            setTimeout(() => {
+                document.getElementById('search-input').focus();
+            }, 1000);
+
+            // Add click event to the 404 number for fun
+            const errorNumber = document.querySelector('.pulse-animation');
+            errorNumber.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
