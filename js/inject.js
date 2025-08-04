@@ -46,6 +46,15 @@ async function loadComponent(elementId, componentUrl) {
         });
 
         console.log(`Successfully loaded component: ${componentUrl}`);
+        
+        // Trigger GitHub Pages path fixing if available
+        if (window.fixPaths && typeof window.fixPaths === 'function') {
+            setTimeout(() => {
+                window.fixPaths();
+            }, 100);
+        }
+        
+        return Promise.resolve();
     } catch (error) {
         console.error(`Error loading component ${componentUrl}:`, error);
         
@@ -72,6 +81,8 @@ async function loadComponent(elementId, componentUrl) {
                 </footer>
             `;
         }
+        
+        return Promise.reject(error);
     }
 }
 

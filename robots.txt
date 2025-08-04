@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yourwebsite.com/sitemap.xml
+Sitemap: https://jonathanbysanon.github.io/ClimateCanada/sitemap.xml
 
 # Allow all web crawlers to access all content
 Crawl-delay: 1
