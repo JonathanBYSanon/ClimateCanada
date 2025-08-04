@@ -4,7 +4,7 @@
             <!-- Logo and Description -->
             <div class="flex flex-col items-center md:items-start">
                 <div class="flex items-center space-x-3 mb-3">
-                    <img src="/images/logo.png" alt="GreenData Logo" class="h-8 w-8">
+                    <img id="footer-logo" src="/images/logo.png" alt="GreenData Logo" class="h-8 w-8">
                     <h3 class="text-lg font-bold">GreenData</h3>
                 </div>
                 <p class="text-gray-300 text-sm text-center md:text-left max-w-xs">
@@ -17,17 +17,17 @@
                 <h4 class="text-md font-semibold mb-3 text-[#209E92]">Navigation</h4>
                 <ul class="space-y-2">
                     <li>
-                        <a href="/index.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
+                        <a id="footer-home" href="/index.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
                             • Accueil
                         </a>
                     </li>
                     <li>
-                        <a href="/pages/dashboard.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
+                        <a id="footer-dashboard" href="/pages/dashboard.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
                             • Visualisation
                         </a>
                     </li>
                     <li>
-                        <a href="/pages/team.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
+                        <a id="footer-team" href="/pages/team.html" class="text-gray-300 hover:text-[#209E92] transition-colors duration-200 flex items-center justify-center md:justify-start">
                             • Équipe
                         </a>
                     </li>
@@ -56,21 +56,29 @@
 </footer>
 
 <script>
-// Fix footer paths using the global fixURL function
+// Set relative paths based on current location
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        if (window.fixURL) {
-            // Fix logo image
-            const logo = document.querySelector('footer img[src^="/"]');
-            if (logo) {
-                logo.src = fixURL(logo.getAttribute('src'));
-            }
-            
-            // Fix all footer links
-            document.querySelectorAll('footer a[href^="/"]').forEach(link => {
-                link.href = fixURL(link.getAttribute('href'));
-            });
-        }
-    }, 100); // Small delay to ensure fixURL is loaded
+    // Detect if we're in a subfolder by checking current URL
+    const isInSubfolder = window.location.pathname.includes('/pages/');
+    const pathPrefix = isInSubfolder ? '../' : '';
+    
+    // Update logo
+    const logo = document.getElementById('footer-logo');
+    if (logo) {
+        logo.src = pathPrefix + 'images/logo.png';
+    }
+    
+    // Update footer links
+    if (isInSubfolder) {
+        // We're in pages folder, use relative paths
+        document.getElementById('footer-home').href = '../index.html';
+        document.getElementById('footer-dashboard').href = 'dashboard.html';
+        document.getElementById('footer-team').href = 'team.html';
+    } else {
+        // We're at root level, use relative paths from root
+        document.getElementById('footer-home').href = 'index.html';
+        document.getElementById('footer-dashboard').href = 'pages/dashboard.html';
+        document.getElementById('footer-team').href = 'pages/team.html';
+    }
 });
 </script>

@@ -1,27 +1,18 @@
 /**
- * Simple GitHub Pages Path Configuration
+ * GitHub Pages Path Configuration - Now using relative paths!
+ * This file is kept for compatibility but no longer needed since we use relative paths.
  */
 
-// Detect if we're on GitHub Pages
+// Detect if we're on GitHub Pages (for analytics or other purposes)
 const isGitHubPages = window.location.hostname.includes('github.io');
-const basePath = isGitHubPages ? '/ClimateCanada' : '';
 
-/**
- * Simple URL fix - check if ClimateCanada is in the URL, if not add it
- */
+// Legacy function kept for compatibility - no longer needed with relative paths
 function fixURL(path) {
-    if (isGitHubPages && !path.includes('ClimateCanada')) {
-
-        console.log(`fixURL called with path: ${path}`);
-        
-        return '/ClimateCanada' + path;
-    }
-    return path;
-
-    
+    console.log(`fixURL called with path: ${path} - but relative paths are used instead!`);
+    return path; // Just return the path as-is since we use relative paths now
 }
 
-// Make fixURL available globally
+// Make fixURL available globally for compatibility
 window.fixURL = fixURL;
 
 // /**

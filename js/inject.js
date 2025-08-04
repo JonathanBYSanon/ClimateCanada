@@ -4,9 +4,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Use fixURL to ensure proper paths for GitHub Pages
-    const headerPath = window.fixURL ? window.fixURL('/components/header.html') : '/components/header.html';
-    const footerPath = window.fixURL ? window.fixURL('/components/footer.html') : '/components/footer.html';
+    // Detect if we're in a subfolder by checking the current path
+    const isInSubfolder = window.location.pathname.includes('/pages/');
+    const pathPrefix = isInSubfolder ? '../' : '';
+    
+    const headerPath = pathPrefix + 'components/header.html';
+    const footerPath = pathPrefix + 'components/footer.html';
     
     loadComponent('header-placeholder', headerPath);
     loadComponent('footer-placeholder', footerPath);
@@ -20,11 +23,8 @@ async function loadComponent(elementId, componentUrl) {
         const element = document.getElementById(elementId);
         if (!element) return;
 
-        // Use the global fixURL function if available, otherwise use the URL as-is
-        const adjustedUrl = window.fixURL ? window.fixURL(componentUrl) : componentUrl;
-
-        const response = await fetch(adjustedUrl);
-        if (!response.ok) throw new Error(`Failed to fetch ${adjustedUrl}`);
+        const response = await fetch(componentUrl);
+        if (!response.ok) throw new Error(`Failed to fetch ${componentUrl}`);
 
         const html = await response.text();
         element.innerHTML = html;

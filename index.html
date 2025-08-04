@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Manifest for PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon512_rounded.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/icon512_rounded.png">
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#209e92">
@@ -47,7 +47,7 @@
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto text-center">
                     <div class="mb-6">
-                        <img src="/images/logo.png" alt="GreenData Logo" class="h-20 w-20 mx-auto mb-4">
+                        <img src="images/logo.png" alt="GreenData Logo" class="h-20 w-20 mx-auto mb-4">
                     </div>
                     <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                         Green<span class="text-primary-dark">Data</span>
@@ -63,12 +63,12 @@
                     
                     <!-- CTA Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="/pages/dashboard.html" class="group bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2">
+                        <a href="pages/dashboard.html" class="group bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2">
                             <i class="fas fa-chart-bar group-hover:text-primary transition-colors duration-300"></i>
                             <span>Voir les Visualisations</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </a>
-                        <a href="/pages/team.html" class="group border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary-dark transition-all duration-300 transform hover:scale-105 flex items-center space-x-2">
+                        <a href="pages/team.html" class="group border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary-dark transition-all duration-300 transform hover:scale-105 flex items-center space-x-2">
                             <i class="fas fa-users"></i>
                             <span>Rencontrer l'Équipe</span>
                         </a>
@@ -186,7 +186,7 @@
         <section class="py-16 bg-primary">
             <div class="container mx-auto px-4 text-center">
                 <div class="max-w-3xl mx-auto">
-                    <a href="/pages/dashboard.html" class="inline-flex items-center space-x-2 bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <a href="pages/dashboard.html" class="inline-flex items-center space-x-2 bg-white text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <i class="fas fa-play"></i>
                         <span>Commencer l'Exploration</span>
                         <i class="fas fa-arrow-right ml-2"></i>
@@ -200,7 +200,38 @@
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
-    <script src="/js/github-pages-config.js"></script>
-    <script src="/js/inject.js"></script>
+    <script src="js/github-pages-config.js"></script>
+    <script src="js/inject.js"></script>
+    
+    <script>
+    // Fix paths in main page content
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            if (window.fixURL) {
+                // Fix logo image in hero section
+                const heroLogo = document.querySelector('main img[src^="/"]');
+                if (heroLogo) {
+                    heroLogo.src = fixURL(heroLogo.getAttribute('src'));
+                }
+                
+                // Fix all links in main content
+                document.querySelectorAll('main a[href^="/"]').forEach(link => {
+                    link.href = fixURL(link.getAttribute('href'));
+                });
+                
+                // Fix manifest and favicon in head
+                const manifest = document.querySelector('link[rel="manifest"]');
+                if (manifest) {
+                    manifest.href = fixURL(manifest.getAttribute('href'));
+                }
+                
+                const favicon = document.querySelector('link[rel="icon"]');
+                if (favicon) {
+                    favicon.href = fixURL(favicon.getAttribute('href'));
+                }
+            }
+        }, 50); // Small delay to ensure fixURL is loaded
+    });
+    </script>
 </body>
 </html>
