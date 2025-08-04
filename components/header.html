@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <!-- Logo and Brand -->
             <div class="flex items-center space-x-3">
-                <img id="header-logo" src="/images/logo.png" alt="GreenData Logo" class="h-10 w-10">
+                <img id="header-logo" src="#" alt="GreenData Logo" class="h-10 w-10">
                 <div class="flex flex-col">
                     <h1 class="text-xl font-bold text-white">GreenData</h1>
                     <p class="text-xs text-gray-200 hidden sm:block">Données climatiques du Canada</p>
@@ -12,15 +12,15 @@
             
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-6">
-                <a id="nav-home" href="/index.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                <a id="nav-home" href="#" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
                     <i class="fas fa-home"></i>
                     <span>Accueil</span>
                 </a>
-                <a id="nav-dashboard" href="/pages/dashboard.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                <a id="nav-dashboard" href="#" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
                     <i class="fas fa-chart-bar"></i>
                     <span>Visualisation</span>
                 </a>
-                <a id="nav-team" href="/pages/team.html" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
+                <a id="nav-team" href="#" class="nav-link flex items-center space-x-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-[#209E92] hover:text-white">
                     <i class="fas fa-users"></i>
                     <span>Équipe</span>
                 </a>
@@ -34,13 +34,13 @@
         
         <!-- Mobile Navigation -->
         <nav class="md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
-            <a id="mobile-nav-home" href="/index.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+            <a id="mobile-nav-home" href="#" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
                 <i class="fas fa-home mr-2"></i>Accueil
             </a>
-            <a id="mobile-nav-dashboard" href="/pages/dashboard.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+            <a id="mobile-nav-dashboard" href="#" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
                 <i class="fas fa-chart-bar mr-2"></i>Visualisation
             </a>
-            <a id="mobile-nav-team" href="/pages/team.html" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
+            <a id="mobile-nav-team" href="#" class="nav-link-mobile block px-3 py-2 rounded-md text-white hover:bg-[#209E92] transition-colors duration-200">
                 <i class="fas fa-users mr-2"></i>Équipe
             </a>
         </nav>
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 // Set relative paths based on current location
-document.addEventListener('DOMContentLoaded', function() {
+function updateHeaderLinks() {
     // Detect if we're in a subfolder by checking current URL
     const isInSubfolder = window.location.pathname.includes('/pages/');
     const pathPrefix = isInSubfolder ? '../' : '';
@@ -111,5 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('mobile-nav-dashboard').href = 'pages/dashboard.html';
         document.getElementById('mobile-nav-team').href = 'pages/team.html';
     }
-});
+};
+
+updateHeaderLinks();
 </script>
