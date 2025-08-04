@@ -11,9 +11,14 @@ const basePath = isGitHubPages ? '/ClimateCanada' : '';
  */
 function fixURL(path) {
     if (isGitHubPages && !path.includes('ClimateCanada')) {
+
+        console.log(`fixURL called with path: ${path}`);
+        
         return '/ClimateCanada' + path;
     }
     return path;
+
+    
 }
 
 // Make fixURL available globally
