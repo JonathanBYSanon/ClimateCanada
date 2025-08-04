@@ -79,3 +79,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+// Fix navigation paths using the global fixURL function
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        if (window.fixURL) {
+            // Fix logo image
+            const logo = document.querySelector('header img[src^="/"]');
+            if (logo) {
+                logo.src = fixURL(logo.getAttribute('src'));
+            }
+            
+            // Fix all navigation links
+            document.querySelectorAll('header a[href^="/"]').forEach(link => {
+                link.href = fixURL(link.getAttribute('href'));
+            });
+        }
+    }, 100); // Small delay to ensure fixURL is loaded
+});
+</script>

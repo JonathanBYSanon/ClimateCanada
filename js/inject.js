@@ -4,8 +4,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadComponent('header-placeholder', '/components/header.html');
-    loadComponent('footer-placeholder', '/components/footer.html');
+    // Use fixURL to ensure proper paths for GitHub Pages
+    const headerPath = window.fixURL ? window.fixURL('/components/header.html') : '/components/header.html';
+    const footerPath = window.fixURL ? window.fixURL('/components/footer.html') : '/components/footer.html';
+    
+    loadComponent('header-placeholder', headerPath);
+    loadComponent('footer-placeholder', footerPath);
 });
 
 /**
@@ -16,9 +20,8 @@ async function loadComponent(elementId, componentUrl) {
         const element = document.getElementById(elementId);
         if (!element) return;
 
-        // Adjust URL for GitHub Pages
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const adjustedUrl = isGitHubPages ? '/ClimateCanada' + componentUrl : componentUrl;
+        // Use the global fixURL function if available, otherwise use the URL as-is
+        const adjustedUrl = window.fixURL ? window.fixURL(componentUrl) : componentUrl;
 
         const response = await fetch(adjustedUrl);
         if (!response.ok) throw new Error(`Failed to fetch ${adjustedUrl}`);
@@ -34,11 +37,6 @@ async function loadComponent(elementId, componentUrl) {
             document.head.appendChild(newScript);
             script.remove();
         });
-
-        // Fix paths after loading
-        if (window.fixPaths) {
-            setTimeout(window.fixPaths, 100);
-        }
 
     } catch (error) {
         console.error(`Error loading component:`, error);

@@ -6,6 +6,19 @@
 const isGitHubPages = window.location.hostname.includes('github.io');
 const basePath = isGitHubPages ? '/ClimateCanada' : '';
 
+/**
+ * Simple URL fix - check if ClimateCanada is in the URL, if not add it
+ */
+function fixURL(path) {
+    if (isGitHubPages && !path.includes('ClimateCanada')) {
+        return '/ClimateCanada' + path;
+    }
+    return path;
+}
+
+// Make fixURL available globally
+window.fixURL = fixURL;
+
 // /**
 //  * Fix absolute paths for GitHub Pages
 //  */

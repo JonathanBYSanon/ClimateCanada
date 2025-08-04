@@ -54,3 +54,23 @@
         </div>
     </div>
 </footer>
+
+<script>
+// Fix footer paths using the global fixURL function
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        if (window.fixURL) {
+            // Fix logo image
+            const logo = document.querySelector('footer img[src^="/"]');
+            if (logo) {
+                logo.src = fixURL(logo.getAttribute('src'));
+            }
+            
+            // Fix all footer links
+            document.querySelectorAll('footer a[href^="/"]').forEach(link => {
+                link.href = fixURL(link.getAttribute('href'));
+            });
+        }
+    }, 100); // Small delay to ensure fixURL is loaded
+});
+</script>
