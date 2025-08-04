@@ -202,36 +202,5 @@
     <!-- Scripts -->
     <script src="js/github-pages-config.js"></script>
     <script src="js/inject.js"></script>
-    
-    <script>
-    // Fix paths in main page content
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(() => {
-            if (window.fixURL) {
-                // Fix logo image in hero section
-                const heroLogo = document.querySelector('main img[src^="/"]');
-                if (heroLogo) {
-                    heroLogo.src = fixURL(heroLogo.getAttribute('src'));
-                }
-                
-                // Fix all links in main content
-                document.querySelectorAll('main a[href^="/"]').forEach(link => {
-                    link.href = fixURL(link.getAttribute('href'));
-                });
-                
-                // Fix manifest and favicon in head
-                const manifest = document.querySelector('link[rel="manifest"]');
-                if (manifest) {
-                    manifest.href = fixURL(manifest.getAttribute('href'));
-                }
-                
-                const favicon = document.querySelector('link[rel="icon"]');
-                if (favicon) {
-                    favicon.href = fixURL(favicon.getAttribute('href'));
-                }
-            }
-        }, 50); // Small delay to ensure fixURL is loaded
-    });
-    </script>
 </body>
 </html>
