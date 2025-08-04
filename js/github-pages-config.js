@@ -1,12 +1,10 @@
 /**
- * GitHub Pages Path Configuration
- * Automatically adjusts paths based on deployment environment
+ * Simple GitHub Pages Path Configuration
  */
 
 // Detect if we're on GitHub Pages
 const isGitHubPages = window.location.hostname.includes('github.io');
-const repoName = isGitHubPages ? window.location.pathname.split('/')[1] : '';
-const basePath = isGitHubPages ? `/${repoName}` : '';
+const basePath = isGitHubPages ? '/ClimateCanada' : '';
 
 /**
  * Fix absolute paths for GitHub Pages
@@ -17,7 +15,7 @@ function fixPaths() {
     // Fix all links with href starting with "/"
     document.querySelectorAll('a[href^="/"]').forEach(link => {
         const href = link.getAttribute('href');
-        if (!href.startsWith(basePath)) {
+        if (!href.startsWith('/ClimateCanada')) {
             link.setAttribute('href', basePath + href);
         }
     });
@@ -25,16 +23,8 @@ function fixPaths() {
     // Fix all images with src starting with "/"
     document.querySelectorAll('img[src^="/"]').forEach(img => {
         const src = img.getAttribute('src');
-        if (!src.startsWith(basePath)) {
+        if (!src.startsWith('/ClimateCanada')) {
             img.setAttribute('src', basePath + src);
-        }
-    });
-    
-    // Fix all scripts with src starting with "/"
-    document.querySelectorAll('script[src^="/"]').forEach(script => {
-        const src = script.getAttribute('src');
-        if (!src.startsWith(basePath)) {
-            script.setAttribute('src', basePath + src);
         }
     });
     
@@ -42,7 +32,7 @@ function fixPaths() {
     const manifestLink = document.querySelector('link[rel="manifest"]');
     if (manifestLink) {
         const href = manifestLink.getAttribute('href');
-        if (href.startsWith('/') && !href.startsWith(basePath)) {
+        if (href.startsWith('/') && !href.startsWith('/ClimateCanada')) {
             manifestLink.setAttribute('href', basePath + href);
         }
     }
@@ -51,80 +41,22 @@ function fixPaths() {
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
         const href = favicon.getAttribute('href');
-        if (href.startsWith('/') && !href.startsWith(basePath)) {
+        if (href.startsWith('/') && !href.startsWith('/ClimateCanada')) {
             favicon.setAttribute('href', basePath + href);
         }
     }
 }
 
-/**
- * Update component loading for GitHub Pages
- */
-function updateComponentPaths() {
-    if (window.loadComponent && isGitHubPages) {
-        const originalLoadComponent = window.loadComponent;
-        window.loadComponent = function(elementId, componentUrl) {
-            const adjustedUrl = componentUrl.startsWith('/') ? basePath + componentUrl : componentUrl;
-            return originalLoadComponent(elementId, adjustedUrl).then(() => {
-                // Fix paths in newly loaded components
-                setTimeout(() => {
-                    fixPaths();
-                }, 100);
-            });
-        };
-    }
-}
-
-/**
- * Fix paths in dynamically loaded content (like components)
- */
-function fixDynamicContent() {
-    if (!isGitHubPages) return;
-    
-    // Create a MutationObserver to watch for new content
-    const observer = new MutationObserver((mutations) => {
-        let needsFixing = false;
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                needsFixing = true;
-            }
-        });
-        
-        if (needsFixing) {
-            setTimeout(() => {
-                fixPaths();
-            }, 50);
-        }
-    });
-    
-    // Start observing the document
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-// Apply fixes when DOM is loaded
+// Run when page loads
 document.addEventListener('DOMContentLoaded', function() {
     fixPaths();
-    updateComponentPaths();
-    fixDynamicContent();
     
-    console.log('GitHub Pages configuration applied');
-    console.log('Base path:', basePath);
-    console.log('Is GitHub Pages:', isGitHubPages);
-    
-    // Also fix paths after a delay to catch any late-loading content
-    setTimeout(() => {
-        fixPaths();
-    }, 500);
-    
-    setTimeout(() => {
-        fixPaths();
-    }, 1000);
+    // Run again after components load
+    setTimeout(fixPaths, 200);
+    setTimeout(fixPaths, 500);
 });
 
-// Make fixPaths globally accessible
+// Make available globally
 window.fixPaths = fixPaths;
 
 // Also apply fixes immediately for any existing content

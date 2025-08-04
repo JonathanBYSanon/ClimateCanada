@@ -4,30 +4,24 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for GitHub Pages config to load first
-    setTimeout(() => {
-        loadComponent('header-placeholder', '/components/header.html');
-        loadComponent('footer-placeholder', '/components/footer.html');
-    }, 100);
+    loadComponent('header-placeholder', '/components/header.html');
+    loadComponent('footer-placeholder', '/components/footer.html');
 });
 
 /**
  * Load a component from a URL and inject it into the specified element
- * @param {string} elementId - The ID of the element to inject the component into
- * @param {string} componentUrl - The URL of the component to load
  */
 async function loadComponent(elementId, componentUrl) {
     try {
         const element = document.getElementById(elementId);
-        if (!element) {
-            console.warn(`Element with ID '${elementId}' not found`);
-            return;
-        }
+        if (!element) return;
 
-        const response = await fetch(componentUrl);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch ${componentUrl}: ${response.status}`);
-        }
+        // Adjust URL for GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const adjustedUrl = isGitHubPages ? '/ClimateCanada' + componentUrl : componentUrl;
+
+        const response = await fetch(adjustedUrl);
+        if (!response.ok) throw new Error(`Failed to fetch ${adjustedUrl}`);
 
         const html = await response.text();
         element.innerHTML = html;
@@ -36,42 +30,30 @@ async function loadComponent(elementId, componentUrl) {
         const scripts = element.querySelectorAll('script');
         scripts.forEach(script => {
             const newScript = document.createElement('script');
-            if (script.src) {
-                newScript.src = script.src;
-            } else {
-                newScript.textContent = script.textContent;
-            }
+            newScript.textContent = script.textContent;
             document.head.appendChild(newScript);
             script.remove();
         });
 
-        console.log(`Successfully loaded component: ${componentUrl}`);
-        
-        // Trigger GitHub Pages path fixing if available
-        if (window.fixPaths && typeof window.fixPaths === 'function') {
-            setTimeout(() => {
-                window.fixPaths();
-            }, 100);
+        // Fix paths after loading
+        if (window.fixPaths) {
+            setTimeout(window.fixPaths, 100);
         }
-        
-        return Promise.resolve();
+
     } catch (error) {
-        console.error(`Error loading component ${componentUrl}:`, error);
+        console.error(`Error loading component:`, error);
         
-        // Fallback content for header
+        // Simple fallback
         if (elementId === 'header-placeholder') {
             document.getElementById(elementId).innerHTML = `
                 <header class="bg-[#004E66] text-white shadow-lg">
-                    <div class="container mx-auto px-4 py-3">
-                        <div class="flex items-center justify-center">
-                            <h1 class="text-xl font-bold">GreenData</h1>
-                        </div>
+                    <div class="container mx-auto px-4 py-3 text-center">
+                        <h1 class="text-xl font-bold">GreenData</h1>
                     </div>
                 </header>
             `;
         }
         
-        // Fallback content for footer
         if (elementId === 'footer-placeholder') {
             document.getElementById(elementId).innerHTML = `
                 <footer class="bg-[#004E66] text-white mt-auto">
@@ -81,8 +63,6 @@ async function loadComponent(elementId, componentUrl) {
                 </footer>
             `;
         }
-        
-        return Promise.reject(error);
     }
 }
 
